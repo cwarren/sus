@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/signup_sheets/db" VERSION="20091125" COMMENT="XMLDB file for Moodle blocks/signup_sheets"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="signup_sheets" COMMENT="Default comment for signup_sheets, please edit me" NEXT="sus_sheetgroups">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="sus_sheetgroups" COMMENT="For managing collections of related sheets" PREVIOUS="signup_sheets" NEXT="sus_sheets">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="created_at"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="updated_at"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="created_at" NEXT="flag_deleted"/>
+        <FIELD NAME="flag_deleted" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="updated_at" NEXT="owner_user_id"/>
+        <FIELD NAME="owner_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_deleted" NEXT="flag_is_default"/>
+        <FIELD NAME="flag_is_default" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="owner_user_id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="flag_is_default" NEXT="description"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="name" NEXT="max_g_total_user_signups"/>
+        <FIELD NAME="max_g_total_user_signups" TYPE="int" LENGTH="3" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="description" NEXT="max_g_pending_user_signups"/>
+        <FIELD NAME="max_g_pending_user_signups" TYPE="int" LENGTH="3" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="max_g_total_user_signups"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="sus_sheets" COMMENT="Contains the high-level sheet data (name, descr, etc.)" PREVIOUS="sus_sheetgroups" NEXT="sus_openings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="created_at"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="updated_at"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="created_at" NEXT="flag_deleted"/>
+        <FIELD NAME="flag_deleted" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="updated_at" NEXT="owner_user_id"/>
+        <FIELD NAME="owner_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_deleted" NEXT="last_user_id"/>
+        <FIELD NAME="last_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="The ID of the last user to make a change to this record" PREVIOUS="owner_user_id" NEXT="sus_sheetgroup_id"/>
+        <FIELD NAME="sus_sheetgroup_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="last_user_id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="sus_sheetgroup_id" NEXT="description"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="name" NEXT="type"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="32" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="description" NEXT="date_opens"/>
+        <FIELD NAME="date_opens" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="Users can not sign up here until after the given time" PREVIOUS="type" NEXT="date_closes"/>
+        <FIELD NAME="date_closes" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="Users can not sign up after this time" PREVIOUS="date_opens" NEXT="max_total_user_signups"/>
+        <FIELD NAME="max_total_user_signups" TYPE="int" LENGTH="3" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="date_closes" NEXT="max_pending_user_signups"/>
+        <FIELD NAME="max_pending_user_signups" TYPE="int" LENGTH="3" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="max_total_user_signups" NEXT="flag_alert_owner_change"/>
+        <FIELD NAME="flag_alert_owner_change" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="max_pending_user_signups" NEXT="flag_alert_owner_signup"/>
+        <FIELD NAME="flag_alert_owner_signup" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_owner_change" NEXT="flag_alert_owner_imminent"/>
+        <FIELD NAME="flag_alert_owner_imminent" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_owner_signup" NEXT="flag_alert_admin_change"/>
+        <FIELD NAME="flag_alert_admin_change" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_owner_imminent" NEXT="flag_alert_admin_signup"/>
+        <FIELD NAME="flag_alert_admin_signup" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_admin_change" NEXT="flag_alert_admin_imminent"/>
+        <FIELD NAME="flag_alert_admin_imminent" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_admin_signup" NEXT="flag_private_signups"/>
+        <FIELD NAME="flag_private_signups" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="flag_alert_admin_imminent"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="sus_openings" COMMENT="Places users can sign up - a single sheet may have multiple openings" PREVIOUS="sus_sheets" NEXT="sus_signups">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="created_at"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="updated_at"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="created_at" NEXT="flag_deleted"/>
+        <FIELD NAME="flag_deleted" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="updated_at" NEXT="last_user_id"/>
+        <FIELD NAME="last_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="The ID of the last user to make a change to this object" PREVIOUS="flag_deleted" NEXT="sus_sheet_id"/>
+        <FIELD NAME="sus_sheet_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="last_user_id" NEXT="opening_set_id"/>
+        <FIELD NAME="opening_set_id" TYPE="int" LENGTH="20" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="purely internal id - NOT a foreign key" PREVIOUS="sus_sheet_id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="opening_set_id" NEXT="description"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="name" NEXT="max_signups"/>
+        <FIELD NAME="max_signups" TYPE="int" LENGTH="6" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="description" NEXT="admin_comment"/>
+        <FIELD NAME="admin_comment" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="max_signups" NEXT="begin_datetime"/>
+        <FIELD NAME="begin_datetime" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="what day and time the opening begins" PREVIOUS="admin_comment" NEXT="end_datetime"/>
+        <FIELD NAME="end_datetime" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="what day and time the opening ends" PREVIOUS="begin_datetime" NEXT="location"/>
+        <FIELD NAME="location" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" COMMENT="Where to meet - optional" PREVIOUS="end_datetime"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="sus_signups" COMMENT="Users signing up for openings - analogous to signatures on a sheet of paper" PREVIOUS="sus_openings" NEXT="sus_access">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="created_at"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="updated_at"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="created_at" NEXT="flag_deleted"/>
+        <FIELD NAME="flag_deleted" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="updated_at" NEXT="last_user_id"/>
+        <FIELD NAME="last_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="flag_deleted" NEXT="sus_opening_id"/>
+        <FIELD NAME="sus_opening_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="last_user_id" NEXT="signup_user_id"/>
+        <FIELD NAME="signup_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="sus_opening_id" NEXT="admin_comment"/>
+        <FIELD NAME="admin_comment" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="signup_user_id"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="sus_access" COMMENT="which users can signup on and admin which sheets" PREVIOUS="sus_signups">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="created_at"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="updated_at"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="created_at" NEXT="last_user_id"/>
+        <FIELD NAME="last_user_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="updated_at" NEXT="sheet_id"/>
+        <FIELD NAME="sheet_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="last_user_id" NEXT="type"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="48" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="sheet_id" NEXT="constraint_id"/>
+        <FIELD NAME="constraint_id" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="type" NEXT="constraint_data"/>
+        <FIELD NAME="constraint_data" TYPE="char" LENGTH="32" NOTNULL="false" SEQUENCE="false" ENUM="false" COMMENT="used for access definitions that depend on text (e.g. major is MATH)" PREVIOUS="constraint_id" NEXT="broadness"/>
+        <FIELD NAME="broadness" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="broadness of access item - used for sorting" PREVIOUS="constraint_data"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

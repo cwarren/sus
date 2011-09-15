@@ -1,0 +1,29 @@
+<div id="sus_config">
+ <div class="config_label">Look ahead for upcoming signups</div>
+ <div class="config_value">
+<?php
+    if(! isset($CFG->block_signup_sheets_look_ahead_range) ) {
+        $CFG->block_signup_sheets_look_ahead_range = '5';
+    }
+    $selected = $CFG->block_signup_sheets_look_ahead_range;
+    if (isset($this->config) && isset($this->config->look_ahead_range)) {
+        $selected = $this->config->look_ahead_range;
+    }
+
+    // NOTE: moodle conflates the value and the array index, which is why the below starts at 1 instead of 0, and why the values are strings
+    $options[1] = '1';
+    $options[2] = '2';
+    $options[3] = '3';
+    $options[4] = '4';
+    $options[5] = '5';
+    $options[6] = '6';
+    $options[7] = '7';
+    $options[8] = '8';
+    $options[9] = '9';
+
+    choose_from_menu ($options, 'look_ahead_range', $selected);
+?> days
+ </div>
+ <br clear="all"/>
+ <div class="config_save"><input type="submit" value="<?php print_string('savechanges') ?>" /></div>
+</div>

@@ -1,0 +1,17 @@
+/* this is the printing style sheet for openings */
+
+#blocks-signup_sheets-sheet_edit_opening_form .for_opening_printing 
+{
+  display:block;
+}
+
+.sus_opening_print_button_form, 
+#opening_create_edit
+{
+  display: none;
+}
+
+#blocks-signup_sheets-sheet_edit_opening_form UL.opening_signees_list LI {
+  margin-top: 8px;
+  font-size: 14pt;
+}

@@ -1,0 +1,57 @@
+.tabberlive .tabbertabhide { 
+	display:none; 
+}
+.tabbertab ul { 
+	margin-left:10px;
+}
+
+ul.tabbernav { 
+        margin-top: 20px;
+        margin-bottom: 3px;
+}
+
+.tabbernav li { 
+ 	display:inline;
+ 	background-image:none;
+}
+
+.tabbernav li a {
+	padding:3px 10px;
+	border:1px solid #444;
+ 	/*background:#ccc;*/
+	color:#d36913;
+	background-color:#F5F5F3;
+        margin: 0 3px;
+}
+
+.tabbernav li a:hover {
+	color:#f38933;
+        text-decoration: none;
+}
+
+.tabbernav li.tabberactive {
+}
+.tabbernav li.tabberactive a {
+	border-bottom-color:white;
+	background-color:white;
+	color:#d36913;
+
+}
+
+.tabbernav li.tabberactive a:hover {
+}
+
+.tabberlive .tabbertab {
+ 	padding:9px;
+        border: 1px solid #444;
+ 	/*border-top:0;*/
+ 	background:white;
+	font-size:10pt;
+} 
+
+.tabberlive .tabbertab h2 {
+ 	display:none;
+}
+.tabberlive .tabbertab h3 {
+ 	display:none;
+}
