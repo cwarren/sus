@@ -139,7 +139,7 @@ You are signed up for {$sheet_complex->s_name}.\n\n  ".ymd_hm_a($sheet_complex->
     }
 
     $mail_error =  mailAlerts($sheet_complex,$signup->signup_user_id,
-                              "Glow SUS- {$sheet_complex->s_name} at ".ymd_hm_a($sheet_complex->openings[0]->o_begin_datetime,'-'),
+                              sus_block_name()." - {$sheet_complex->s_name} at ".ymd_hm_a($sheet_complex->openings[0]->o_begin_datetime,'-'),
                               $confirmation_message,
                               "Glow SUS- {$su_user_data->usr_firstname} {$su_user_data->usr_lastname} signed up for ".$sheet_complex->s_name,
                               $admin_message);
@@ -213,9 +213,9 @@ You are signed up for {$sheet_complex->s_name}.\n\n  ".ymd_hm_a($sheet_complex->
         }
 
         $mail_error =  mailAlerts($sheet_complex,$su->su_signup_user_id,
-                                  "Glow SUS- signup cancelled on {$sheet_complex->s_name} at ".ymd_hm_a($sheet_complex->openings[0]->o_begin_datetime,'-'),
+                                  sus_block_name()." - signup cancelled on {$sheet_complex->s_name} at ".ymd_hm_a($sheet_complex->openings[0]->o_begin_datetime,'-'),
                                   $confirmation_message,
-                                  "Glow SUS- cancelled {$su_user_data->usr_firstname} {$su_user_data->usr_lastname} signup for ".$sheet_complex->s_name,
+                                  sus_block_name()." - cancelled {$su_user_data->usr_firstname} {$su_user_data->usr_lastname} signup for ".$sheet_complex->s_name,
                                   $admin_message);
 
         include_once 'cal_lib.php'; // for openingDisplay below
@@ -279,7 +279,7 @@ function mailAlerts($sheet_complex,$signup_user_id,$sign_subj,$sign_body,$admin_
         }
 
         // CSW 200/02/24 : modify owner info to make mail message clearer
-        $owner->firstname = 'Glow SUS';
+        $owner->firstname =  sus_block_name();
         $owner->lastname = 'Admin';
         // NOTE: ideally the message would be from a noreply address,
         // any change to the owner email address causes a silent and

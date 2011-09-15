@@ -2226,7 +2226,7 @@ WHERE
 //    an email address TO (non-empty)
 //    a subject (non-empty)
 //    a message body
-// does: emails that message to that address, coming from glow default mailer
+// does: emails that message to that address, coming from moodle default mailer
 // returns: true on success, false otherwise
 function simpleEmail($to,$subject,$body)
 {
@@ -2240,7 +2240,7 @@ function simpleEmail($to,$subject,$body)
 //    an array of addresses to TO (must have at least one element)
 //    an array of addresses to CC (may be empty)
 //    an array of addresses to BCC (may be empty)
-//    a FROM address (glow_mailer_no_reply@williams.edu is used if this is blank)
+//    a FROM address (sus_default_from_email_address() is used if this is blank)
 //    a REPLY-TO address (FROM is used if this is blank)
 //    a string that's the message SUBJECT (must be non-empty)
 //    a string that's the message BODY (may be empty)
@@ -2261,7 +2261,7 @@ function sendEmail($to_ar,$cc_ar,$bcc_ar,$from,$replyto,$subject,$body)
     ///////////////////////////////////
     // validation and setting defaults
     if (count($to_ar) < 1) { return false; }
-    if (! $from) { $from = "glow_mailer_no_reply@williams.edu"; }
+    if (! $from) { $from = sus_default_from_email_address(); }
     if (! $replyto) { $replyto = $from; }
     if (! $subject) { return false; }
 
@@ -2295,7 +2295,7 @@ function sendEmail($to_ar,$cc_ar,$bcc_ar,$from,$replyto,$subject,$body)
         $mail->AddBCC($bcc_addr); 
     }
     $mail->From     = stripslashes($from);
-    $mail->FromName = 'Glow SUS';
+    $mail->FromName = sus_block_name();
     $mail->AddReplyTo($replyto);
 
     //////////////////////////////////
@@ -2613,6 +2613,57 @@ function sus_recordset_to_array($rs) {
 }
 
 
+function sus_grammatical_max_signups ($num){
+   if (! $num || $num < 0){
+	return 'an unlimited number of signups';
+   }
+   else if ($num == 1){
+   	return "1 signup";
+   } 
+   else {
+   	return "$num signups";
+   }
+}
+
+
+
+/**
+ * Get the name to use for the signup sheet block
+ * @return string
+ */
+function sus_block_name()
+{
+       return sus_moodle_name().' Signup Sheets';
+}
+
+/**
+ * Get the name to use for this instance of Moodle
+ * @return string
+ */
+function sus_moodle_name()
+{
+       return 'Glow';
+}
+
+/**
+ * Get the email address to use as the from: for Signup Sheet reminders
+ * @return string email address
+ */
+function sus_reminders_email_address()
+{
+       return 'glow_sus_reminders@williams.edu';
+}
+
+/**
+ * Get the default email address to use for Signup Sheet emails
+ * @return string email address
+ */
+function sus_default_from_email_address()
+{
+       return 'glow_mailer_no_reply@williams.edu';
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -2636,15 +2687,4 @@ function sus_get_records_sql($sql, $limitfrom='', $limitnum='') {
     return sus_recordset_to_array($rs);
 }
 
-function sus_grammatical_max_signups ($num){
-   if (! $num || $num < 0){
-	return 'an unlimited number of signups';
-   }
-   else if ($num == 1){
-   	return "1 signup";
-   } 
-   else {
-   	return "$num signups";
-   }
-}
 ?>

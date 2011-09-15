@@ -62,7 +62,7 @@ echo '<script type="text/javascript" src="' . $CFG->wwwroot . '/blocks/signup_sh
 </style>
 <div class="for_opening_printing">
 <?php
-echo "<div class=\"sus_very_small\">Glow Sign-up Sheet - Opening Print-out</div>\n";
+echo "<div class=\"sus_very_small\">".sus_moodle_name()." Sign-up Sheet - Opening Print-out</div>\n";
 echo "<h2>{$ssd->s_name}</h2>\n";
 echo "<h5>{$ssd->s_description}</h5>\n";
 if ($ssd->openings[0]->o_name)

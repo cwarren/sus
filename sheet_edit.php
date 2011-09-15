@@ -509,7 +509,7 @@ echo '
   {
     $checked_and_id = 'checked="checked" permid="'.$existing_perms['keyed_byhasaccount']['all'].'"';
   }
-  echo '<input type="checkbox" id="access_by_any" class="permission_checkbox" '.$checked_and_id.' permtype="byhasaccount" permval="all">Glow user'."\n";
+  echo '<input type="checkbox" id="access_by_any" class="permission_checkbox" '.$checked_and_id.' permtype="byhasaccount" permval="all">'.sus_moodle_name().' user'."\n";
 ?>
      </div><!-- end role list -->
     </div><!-- end access by role -->

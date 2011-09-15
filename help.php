@@ -37,22 +37,22 @@
 
 <h1><a name="SignupSheets-WhatareSignupSheets"></a>What are Sign-up Sheets?</h1>
 
-<p>Glow has a tool called Sign-up Sheets. This tool lets any user create a sheet with openings at specific times, and then allows other users to sign up for those openings. This is analogous to a list of times and dates on a piece of paper that is passed around or posted on a door and on which people would put their name - e.g. signing up for a particular lab slot, scheduling office hours, picking a study group time, or more general things like planning a party.
+<p><?Php Echo Sus_Moodle_Name(); ?> has a tool called Sign-up Sheets. This tool lets any user create a sheet with openings at specific times, and then allows other users to sign up for those openings. This is analogous to a list of times and dates on a piece of paper that is passed around or posted on a door and on which people would put their name - e.g. signing up for a particular lab slot, scheduling office hours, picking a study group time, or more general things like planning a party.
   <br clear="all" /></p>
 
 <h1><a name="SignupSheets-WhocanuseSignupSheets"></a>Who can use Sign-up Sheets?</h1>
 
-<p>Anyone with a Glow account can create signup sheets and can sign up for sheets others have created (if they've been granted access).</p>
+<p>Anyone with a <?Php Echo Sus_Moodle_Name(); ?> account can create signup sheets and can sign up for sheets others have created (if they've been granted access).</p>
 
 <h1><a name="SignupSheets-Howdotheywork"></a>How do they work?</h1>
 
-<p>When you log in to Glow you'll have the Sign-up Sheets block on the right hand side of their screen. This displays any impending signups you have and has three links: Available Openings, Sheet Admin, and My Signups. Clicking any of those links gets you into the tool, and the tool has a simple navigation to jump between sections.</p>
+<p>When you log in to <?Php Echo Sus_Moodle_Name(); ?> you'll have the Sign-up Sheets block on the right hand side of their screen. This displays any impending signups you have and has three links: Available Openings, Sheet Admin, and My Signups. Clicking any of those links gets you into the tool, and the tool has a simple navigation to jump between sections.</p>
 
 <img src="image/help/01_antd_my_page_with_block.png" alt="annotated screen shot of My page with sus block"/>
 
 <img src="image/help/02_antd_my_page_block_details.png" alt="annotated image of signup block"/>
 
-<p><b>NOTE:</b> Sign-up sheets are a glow-wide tool. That is, where a user is (on their my page, in a course, in an organization, or where ever else) doesn't affect which sheets they can get to or which up-coming signups they see. Whether a user can see and sign-up on a sheet is configured on a per-sheet basis by the creator of that sheet. E.g. if a user is given access to a sheet because they're in a BIO class, they'll still be able to see their sign-ups for that sheet listed when the sign-up sheet tool is displayed on the course page for their ENGL course.</p>
+<p><b>NOTE:</b> Sign-up sheets are a <?php echo sus_moodle_name(); ?>-wide tool. That is, where a user is (on their my page, in a course, in an organization, or where ever else) doesn't affect which sheets they can get to or which up-coming signups they see. Whether a user can see and sign-up on a sheet is configured on a per-sheet basis by the creator of that sheet. E.g. if a user is given access to a sheet because they're in a BIO class, they'll still be able to see their sign-ups for that sheet listed when the sign-up sheet tool is displayed on the course page for their ENGL course.</p>
 
 <h5><a name="SignupSheets-ConfiguringtheBlockonCoursePages"></a>Configuring the Block on Course Pages</h5>
 
@@ -176,16 +176,16 @@
 
 <ul>
   <li>People in these courses - This is a list of course in which you are enrolled, either as a student or a teacher. By checking the box next to a course you allow anyone enrolled in that course to sign up on this sheet.</li>
-  <li>People in courses taught by - This is a list of everyone that teaches a course in Glow. By checking the box next to a person's name you allow anyone enrolled in a course that person teaches to sign up on this sheet.</li>
+  <li>People in courses taught by - This is a list of everyone that teaches a course in <?Php Echo Sus_Moodle_Name(); ?>. By checking the box next to a person's name you allow anyone enrolled in a course that person teaches to sign up on this sheet.</li>
   <li>These people - This is an open text box where you type in the username (e.g. bviolet, bsv1, etc.) of people that will be able to sign up on this sheet. Separate username by commas or white space.</li>
   <li>People taking a course in - This is a list of all the departments. By checking the box next to a department you allow anyone enrolled in a course in that department to sign up on this sheet.</li>
-  <li>People with a grad year of - This is a list of all the grad years of users in Glow. It includes not only the current student cohort, but also the grad year of any alumni in the system (e.g. if a Williams grad is later hired as a professor) and all the special codes for grad students, highschool students, etc.
+  <li>People with a grad year of - This is a list of all the grad years of users in <?Php Echo Sus_Moodle_Name(); ?>. It includes not only the current student cohort, but also the grad year of any alumni in the system (e.g. if a Williams grad is later hired as a professor) and all the special codes for grad students, highschool students, etc.
     <ul>
       <li><em>NOTE: get interpretations&#33;</em></li>
       
     </ul>
     </li>
-  <li>People who are a - This is a short list of very general attributes. This lets you open a sheet to anyone who's teaching a course in Glow, to anyone who's enrolled as a student in a course in Glow, or to everyone in the system.</li>
+  <li>People who are a - This is a short list of very general attributes. This lets you open a sheet to anyone who's teaching a course in <?Php Echo Sus_Moodle_Name(); ?>, to anyone who's enrolled as a student in a course in <?Php Echo Sus_Moodle_Name(); ?>, or to everyone in the system.</li>
 </ul>
 
 
@@ -197,7 +197,7 @@
 
 <img src="image/help/30_antd_edit_sheet_calendar_closeup.png" alt="annotated screenshots of calendar and click"/>
 
-<p>This pops up a window where you enter the information about the opening(s) you want to create. NOTE: You may have to tell your browser to allow popups from glow.williams.edu.</p>
+<p>This pops up a window where you enter the information about the opening(s) you want to create. NOTE: You may have to tell your browser to allow popups from <?php echo sus_moodle_name(); ?>.williams.edu.</p>
 
 <img src="image/help/31_antd_create_opening_base.png" alt="annotated screenshots of new opening window, without optional fields"/>
 <img src="image/help/32_antd_create_opening_optional.png" alt="annotated screenshots of new opening window, with optional fields"/>

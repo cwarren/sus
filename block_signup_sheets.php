@@ -159,9 +159,13 @@ $(document).ready(function()
     function cron()
     {
         //global $USER_FIELDS,$SIGNUP_FIELDS,$OPENING_FIELDS,$SHEET_FIELDS,$SHEET_GROUP_FIELDS;;
-        $from = "glow_sus_reminders@williams.edu";
-        $subject_my = "Glow SUS - Your upcoming signups";
-        $subject_for_me = "Glow SUS - Upcoming sign-ups on your sheets";
+//        $from = "glow_sus_reminders@williams.edu";
+//        $subject_my = "Glow SUS - Your upcoming signups";
+//        $subject_for_me = "Glow SUS - Upcoming sign-ups on your sheets";
+        $from = sus_reminders_email_address();
+        $subject_my = sus_block_name()." - Your upcoming signups";
+        $subject_for_me = sus_block_name()." - Upcoming sign-ups on your sheets";
+
         $messagetext = "this is a test";
 
 	if (!empty($CFG->noemailever)) {
