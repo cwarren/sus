@@ -1,7 +1,12 @@
 Signup Sheets is a block to allow users to create date-time based openings and specify other users that may sign up for those openings.
 
+This block works with moodle 1.9.x, and NOT with 2.x (that's a work in progress...)
+
+
 TO DO
 -----
++ integrate the genericization work from Carleton
+
 + convert / genericize the help docs
 
 + developer documentation (architecture, code, styles)
