@@ -110,6 +110,8 @@ $add_sheet_url  = "$ss_href&action=editsheet&sheet=new&sheetgroup=";
 $actionsignupclass = '';
 $actionsignupsclass = '';
 $actionmanagesheetsclass = '';
+$actionhelpclass = '';
+
 if ($action == 'managesheets' || $action == 'editgroup' || $action == 'newopening' ||
     $action == 'editsheet' || $action == 'deletegroup' || $action == 'deletesheet') {
     $actionmanagesheetsclass = ' class="curaction"';

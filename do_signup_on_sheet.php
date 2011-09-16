@@ -120,7 +120,7 @@ To see all the openings for this sheet in a text-based list format instead of th
 //getOpeningsList($openings,'','',true);
 if ($sheet_complex->openings[0])
 {
-  getOpeningsList($sheet_complex->openings,'','',true,$sheet_complex->s_flag_private_signups);
+  getOpeningsList($sheet_complex->openings,ymd($sheet_complex->s_date_opens),'','',true,$sheet_complex->s_flag_private_signups);
 } else
 {
   echo "This sheet doesn't yet have any openings";

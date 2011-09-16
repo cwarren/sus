@@ -27,8 +27,10 @@ function notifyUser(msg, newsIsGood, container, leftOffset, topOffset){
     }
 
     $("#sus_user_notify").html(msg);
-    $("#sus_user_notify").css("left",$(container).position().left+leftOffset);
-    $("#sus_user_notify").css("top",$(container).position().top+topOffset);
+//    $("#sus_user_notify").css("left",$(container).position().left+leftOffset);
+//    $("#sus_user_notify").css("top",$(container).position().top+topOffset);
+    $("#sus_user_notify").css("left",$(container).css("left")+leftOffset);
+    $("#sus_user_notify").css("top",$(container).css("top")+topOffset);
     $("#sus_user_notify").fadeIn(150,function(){$("#sus_user_notify").fadeTo(1500,1,function(){$("#sus_user_notify").fadeOut(450);})});
 }
 
@@ -90,3 +92,16 @@ function valsToTimeString(hr,mi,ap)
 }
 
 
+// takes: an object
+// does: displays an alert with that objects attributes
+function debugObject(obj)
+{
+    var info = "";
+    for (var k in obj)
+    {
+	if (obj.hasOwnProperty(k)) {
+	    info += k+": "+obj[k]+"\n";
+	}
+    }
+    alert(info);
+}

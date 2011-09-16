@@ -189,6 +189,7 @@ if ($user_is_admin)
     //Date.format = 'yyyy/mm/dd';
     $(document).ready(function()
     {
+
 	 $(".sus_choose_date").datepicker({
                                         dateFormat: 'yy-m-d'
                                       , changeMonth: true
@@ -592,6 +593,7 @@ if (isset($existing_perms['data_or_ids_of_adminbyuser']))
       $("#sus_user_notify").stop(true,true); 
       var opg = $(evt.target).attr("for_opening");
       var opgday = $(evt.target).attr("for_day");
+
       // need to distinguish if opening removal is coming from cal or list!
       $.ajax({
         url: 'sheet_edit_ajax.php',
@@ -782,7 +784,7 @@ getCalendar($sheet,$create_opening_url,$add_opening_text,true);
 <?php 
 if (isset($sheet->openings) && $sheet->openings[0]) // new sheets have no openings...
 {
-    getOpeningsList($sheet->openings,$create_opening_url,$add_opening_text,true,$sheet->s_flag_private_signups);
+  getOpeningsList($sheet->openings,ymd($sheet->s_date_opens),$create_opening_url,$add_opening_text,true,$sheet->s_flag_private_signups);
 } else
 {
     echo "There are not yet openings on this sheet";

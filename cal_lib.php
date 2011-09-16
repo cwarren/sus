@@ -271,6 +271,7 @@ function getOpeningMinitimesDisplay($for_date,$minitimes,$details)
 # returns: the calendar code if $direct_display is false, and ture (if anything was displayed) or false (nothing displayed) if it is $direct_display is true
 function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',$direct_display=false)
 {
+
     $cal_display_html = '<div class="full_calendar">';
     $day_counter = 0;
 
@@ -293,6 +294,23 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
     $sus_end_ymd = ymd($sheet_complex->s_date_closes);
     $today_ymd = ymd();
 
+    //log_debug(0,$cal_start);
+    //log_debug(0,$cal_start_ymd);
+    //log_debug(0,$cal_end);
+    //log_debug(0,$cal_end_ymd);
+
+    // Handle case where there are openings prior to the cal start by
+    // skipping earlier openings - this happend, e.g., when a user updates 
+    // a sheet from a prior semester to start at the current semester but 
+    // they still have many openings from the old semester.
+    //log_debug(-2,' = '.);
+    if (count($sheet_complex->openings) >= 0) {
+      while ($sheet_complex->openings[$opening_index]->o_dateymd < $sus_start_ymd) {
+	$opening_index++;
+      }
+    }
+    
+    // now do that actual calendar
     while ($cal_cur <= $cal_end)
     {
         $cal_cur_dow = (date('N',$cal_cur) % 7) + 1; // shift sunday to first day of week
@@ -328,6 +346,10 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
         
         if (isset($sheet_complex->openings) && $sheet_complex->openings)
         {
+	  //log_debug(-1,"opening_index = ".$opening_index);
+	  // log_debug(-1,"count(sheet_complex->openings) = ". count($sheet_complex->openings));
+	  //log_debug(-1,"sheet_complex->openings[opening_index]->o_dateymd = ".$sheet_complex->openings[$opening_index]->o_dateymd);
+	  //log_debug(-1,"cal_cur_ymd = ".$cal_cur_ymd);
             while (($opening_index < count($sheet_complex->openings)) && ($sheet_complex->openings[$opening_index]->o_dateymd == $cal_cur_ymd))
             {
               $openings_info_list .= '<li>'.openingDisplay($sheet_complex->openings[$opening_index],($create_opening_url && $add_opening_text),$sheet_complex->s_flag_private_signups).'</li>';
@@ -413,13 +435,19 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
 # returns: the HTML for the openings in list format if
 #    $direct_display=false, else if $direct_display=true then treu if
 #    anything was displayed and false otherwise
-function getOpeningsList($openings,$create_opening_url='',$add_opening_text='',$direct_display=false,$private_signups_flag=true)
+function getOpeningsList($openings,$sheet_start_ymd,$create_opening_url='',$add_opening_text='',$direct_display=false,$private_signups_flag=true)
 {
     $openings_html = "<ul>\n";
     $opening_index = 0;
     $openings_on_a_day = '';
     $prior_ymd = '';
     $num_openings = count($openings);
+
+    if ($num_openings > 0) {
+      while ($openings[$opening_index]->o_dateymd < $sheet_start_ymd) {
+	$opening_index++;
+      }
+    }
 
     while ($opening_index < $num_openings)
     {
