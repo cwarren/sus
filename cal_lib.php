@@ -6,9 +6,9 @@ if (! verify_in_signup_sheets()) { die("not in signup_sheets"); }
 /*
 ////////////////////////////////////////////////////////////////////////////////////////
 
-# takes: 
+# takes:
 # does
-# returns: 
+# returns:
 function f($p)
 {
     return $value;
@@ -106,13 +106,13 @@ function openingDisplay($opening,$for_admin_flag=false,$private_signups_flag=tru
         $capacity_class = 'opening_is_full';
     }
     $capacity_text = $opening->o_max_signups;
-    if ($capacity_text < 1) 
+    if ($capacity_text < 1)
     {
-        $capacity_text = '*'; 
+        $capacity_text = '*';
     }
     $ret .= '<span class="opening_capacity '.$capacity_class.'">'."({$num_signups}/$capacity_text)</span>\n";
     if ($for_admin_flag)
-    {       
+    {
        //$ret .= '<div class="opening_signup_link_box edit_opening_link">add someone</div>';
        $ret .= '<div class="opening_signup_link_box edit_opening_link" for_day ="' . ymd($opening->o_begin_datetime) . '" for_opening="' . $opening->o_id;
        $ret .= '" title="add someone" action="addsomeone">add someone</div>';
@@ -126,7 +126,7 @@ function openingDisplay($opening,$for_admin_flag=false,$private_signups_flag=tru
             $ret .= "<span class=\"msg_signed_up\">you're signed up</span>";
             if ($is_future == 'yes')
             {
-                $ret .= "<img class=\"remove_signup_link nukeit\" src=\"image/pix/t/delete.png\" alt=\"remove signup\" title=\"remove signup\" for_signup=\"{$opening->signups_by_user[$USER->id]->su_id}\" for_opening=\"{$opening->o_id}\" for_sheet=\"{$opening->o_sus_sheet_id}\" />"; 
+                $ret .= "<img class=\"remove_signup_link nukeit\" src=\"image/pix/t/delete.png\" alt=\"remove signup\" title=\"remove signup\" for_signup=\"{$opening->signups_by_user[$USER->id]->su_id}\" for_opening=\"{$opening->o_id}\" for_sheet=\"{$opening->o_sus_sheet_id}\" />";
             }
         } else
         {
@@ -152,7 +152,7 @@ function openingDisplay($opening,$for_admin_flag=false,$private_signups_flag=tru
           if (($for_admin_flag) && ($su->su_admin_comment))
           {
               $ret .= $su->su_admin_comment;
-          } 
+          }
           $ret .= "</div>";
           $ret .= "</li>\n";
       }
@@ -262,7 +262,7 @@ function getOpeningMinitimesDisplay($for_date,$minitimes,$details)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-# takes: 
+# takes:
 #   a structured sheet data object
 #   an optional url for creating opening links
 #   optional text for create/add opening links
@@ -277,14 +277,14 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
 
     $opening_index = 0;
     $openings_list_display = '';
-    
+
     // these need to reflect the CSS values - ugly hack, I know...
     $day_height = 36;
     $dow_heading_height = 18;
     $cell_border = 1;
     $cell_padding = 4;
 
-    $height_of_day_cells = $day_height + 2*$cell_border + 2*$cell_padding; 
+    $height_of_day_cells = $day_height + 2*$cell_border + 2*$cell_padding;
     $height_of_dow_header = $dow_heading_height + 2*$cell_border + 2*$cell_padding;
 
     $cal_start = firstOfMonth_timeAsDate($sheet_complex->s_date_opens);
@@ -300,23 +300,26 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
     //log_debug(0,$cal_end_ymd);
 
     // Handle case where there are openings prior to the cal start by
-    // skipping earlier openings - this happend, e.g., when a user updates 
-    // a sheet from a prior semester to start at the current semester but 
+    // skipping earlier openings - this happend, e.g., when a user updates
+    // a sheet from a prior semester to start at the current semester but
     // they still have many openings from the old semester.
-    //log_debug(-2,' = '.);
-    if (count($sheet_complex->openings) >= 0) {
-      while ($sheet_complex->openings[$opening_index]->o_dateymd < $sus_start_ymd) {
-	$opening_index++;
-      }
+    $loop_limit = 10000; // just in case something unforeseen causes an otherwise infinite loop
+    if (property_exists($sheet_complex,'openings') && (count($sheet_complex->openings) >= 0)) {
+        while (($opening_index < $loop_limit) && ($sheet_complex->openings[$opening_index]->o_dateymd < $sus_start_ymd)) {
+            $opening_index++;
+        }
     }
-    
+    if ($opening_index >= $loop_limit) {
+      log_debug(0,"Sign-up Sheet WARNING: possible infinite loop scenario aborted; opening_index > loop_limit in cal_lib");
+    }
+
     // now do that actual calendar
     while ($cal_cur <= $cal_end)
     {
         $cal_cur_dow = (date('N',$cal_cur) % 7) + 1; // shift sunday to first day of week
-        $cal_cur_ymd = ymd($cal_cur); 
+        $cal_cur_ymd = ymd($cal_cur);
         $cal_cur_y_m_d = ymd($cal_cur,'-');
-  
+
         if (isFirstOfMonth($cal_cur)) // close out the previous month and set up a new one
         {
             if ($day_counter > 0)
@@ -324,7 +327,7 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
                 $cal_display_html .=  finishWeekFrom(date('N',$cal_cur)%7);
                 $cal_display_html .=  '</div>'; // close month grid
             }
-    
+
             // num rows in a month = (first dow (0 based) + last day in month + 7) div 7
             $num_week_rows = getNumWeekRowsInMonth($cal_cur);
             $mon_vert_size = ($num_week_rows * $height_of_day_cells) + $height_of_dow_header - (2*$cell_border);
@@ -336,14 +339,14 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
             $cal_display_html .=  startWeekAt($cal_cur_dow);
             $day_counter = $cal_cur_dow;
         }
- 
+
         // get info for the day
         $day_text = date('j',$cal_cur);
         $day_class = getDayCellClass($cal_cur,$sus_start_ymd,$sus_end_ymd);
         $openings_info_list = '';
         $openings_mini_times = getNewOpeningMinitimes();
         //print_r($sheet_complex); // DEBUGGING
-        
+
         if (isset($sheet_complex->openings) && $sheet_complex->openings)
         {
 	  //log_debug(-1,"opening_index = ".$opening_index);
@@ -368,7 +371,7 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
                   {
                       $eft_hour++;
                       $dur--;
-                      $openings_mini_times[$eft_hour] = 1;                      
+                      $openings_mini_times[$eft_hour] = 1;
                   }
               } else
               {
@@ -388,7 +391,7 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
                                         480, 640, 'Create Sign-up Openings',
                                         'location=0,directories=0,menubar=0,scrollbars=1',true); // dev code - shows scroll bars, for live set to 0
         }
-  
+
         // actually output the day cell
         //$cal_display_html .=  '<div id="day_'.ymd($cal_cur).'" class="'.$day_class.'">'. $day_text . $add_opening;
         $cal_display_html .=  '<div id="day_'.ymd($cal_cur).'" class="'.$day_class.'">';
@@ -404,13 +407,13 @@ function getCalendar($sheet_complex,$create_opening_url='',$add_opening_text='',
         }
         $cal_display_html .=  $day_text . '<br/>'. $add_opening;
         $cal_display_html .=  '</div>'; // <!-- end day cell -->
-  
+
         // end week if necessary
         if (($day_counter > 0) && ($day_counter % 7 == 0))
         {
            $cal_display_html .=  "</div>\n".'<div class="week_row">';
         }
- 
+
         // finished with this day, on to the next
         $day_counter++;
         $cal_cur = dayAfter_timeAsDate($cal_cur);
@@ -487,7 +490,7 @@ $openings_on_a_day
   </li>
 ";
     $openings_html .= "</ul>\n";
-    
+
     if ($direct_display && $openings_html)
     {
         echo $openings_html;
