@@ -53,7 +53,7 @@ debug(1,"day (y,m,d) = $day ($day_y,$day_m,$day_d)");
 $begintime_hour = clean_param($_REQUEST['begintime_hour'],PARAM_INT);
 $begintime_minute = clean_param($_REQUEST['begintime_minute'],PARAM_INT);
 $begintime_ampm = clean_param($_REQUEST['begintime_ampm'],PARAM_CLEAN);
-if ($begintime_ampm == 'pm')
+if (($begintime_ampm == 'pm') && ($begintime_hour != 12))
 {
     $begintime_hour += 12;
 }
@@ -61,7 +61,7 @@ if ($begintime_ampm == 'pm')
 $endtime_hour = clean_param($_REQUEST['endtime_hour'],PARAM_INT);
 $endtime_minute = clean_param($_REQUEST['endtime_minute'],PARAM_INT);
 $endtime_ampm = clean_param($_REQUEST['endtime_ampm'],PARAM_CLEAN);
-if ($endtime_ampm == 'pm')
+if (($endtime_ampm == 'pm') && ($endtime_hour != 12))
 {
     $endtime_hour += 12;
 }
